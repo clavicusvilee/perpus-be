@@ -29,8 +29,10 @@ router.get('/list', (req, res) => {
  */
 router.post('/create', [
     body('namaBuku').notEmpty(),
-    body('kategoriBuku').notEmpty(),
-    body('stokBuku').notEmpty()
+    body('isbn').notEmpty(),
+    body('kategori').notEmpty(),
+    body('pengarang').notEmpty(),
+    body('stok').notEmpty()
 ], (req, res) => {
     const errors = validationResult(req);
 
@@ -42,8 +44,10 @@ router.post('/create', [
 
     const formData = {
         namaBuku: req.body.namaBuku,
-        kategoriBuku: req.body.kategoriBuku,
-        stokBuku: req.body.stokBuku
+        isbn: req.body.isbn,
+        kategori: req.body.kategori,
+        pengarang: req.body.pengarang,
+        stok: req.body.stok
     };
 
     connection.query('INSERT INTO buku SET ?', formData, (err, rows) => {
@@ -65,7 +69,7 @@ router.post('/create', [
 /**
  * SHOW POST
  */
-router.get('/:id', (req, res) => {
+router.get('/detail/:id', (req, res) => {
     const id = req.params.id;
 
     connection.query(`SELECT * FROM buku WHERE id = ${id}`, (err, rows) => {
@@ -96,8 +100,10 @@ router.get('/:id', (req, res) => {
  */
 router.patch('/update/:id', [
     body('namaBuku').notEmpty(),
-    body('kategoriBuku').notEmpty(),
-    body('stokBuku').notEmpty()
+    body('isbn').notEmpty(),
+    body('kategori').notEmpty(),
+    body('pengarang').notEmpty(),
+    body('stok').notEmpty()
 ], (req, res) => {
     const errors = validationResult(req);
 
@@ -110,8 +116,10 @@ router.patch('/update/:id', [
     const id = req.params.id;
     const formData = {
         namaBuku: req.body.namaBuku,
-        kategoriBuku: req.body.kategoriBuku,
-        stokBuku: req.body.stokBuku
+        isbn: req.body.isbn,
+        kategori: req.body.kategori,
+        pengarang: req.body.pengarang,
+        stok: req.body.stok
     };
 
     connection.query(`UPDATE buku SET ? WHERE id = ${id}`, formData, (err, rows) => {

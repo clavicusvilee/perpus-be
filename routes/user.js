@@ -65,7 +65,7 @@ router.post('/create', [
 /**
  * SHOW POST
  */
-router.get('/:id', (req, res) => {
+router.get('/detail/:id', (req, res) => {
     const id = req.params.id;
 
     connection.query(`SELECT * FROM user WHERE id = ${id}`, (err, rows) => {
