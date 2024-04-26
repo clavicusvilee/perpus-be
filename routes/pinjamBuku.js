@@ -5,10 +5,10 @@ import connection from '../database.js';
 const router = express.Router();
 
 /**
- * INDEX rentBuku
+ * INDEX pinjam
  */
 router.get('/list', (req, res) => {
-    connection.query('SELECT * FROM rentBuku ORDER BY id desc', (err, rows) => {
+    connection.query('SELECT * FROM pinjam ORDER BY id desc', (err, rows) => {
         if (err) {
             return res.status(500).json({
                 status: false,
@@ -17,7 +17,7 @@ router.get('/list', (req, res) => {
         } else {
             return res.status(200).json({
                 status: true,
-                message: 'List Data rentBuku',
+                message: 'List Data pinjam',
                 data: rows
             });
         }
@@ -28,9 +28,11 @@ router.get('/list', (req, res) => {
  * STORE POST
  */
 router.post('/create', [
-    body('idBuku').notEmpty(),
-    body('namaBuku').notEmpty(),
-    body('durasi').notEmpty()
+    body('namaPeminjam').notEmpty(),
+    body('startDate').notEmpty(),
+    body('endDate').notEmpty(),
+    body('noPinjam').notEmpty(),
+    body('isbn').notEmpty()
 ], (req, res) => {
     const errors = validationResult(req);
 
@@ -41,13 +43,14 @@ router.post('/create', [
     }
 
     const formData = {
-        idBuku: req.body.idBuku,
-        namaBuku: req.body.namaBuku,
-        password: req.body.password,
-        durasi: req.body.durasi
+        namaPeminjam: req.body.namaPeminjam,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
+        noPinjam: req.body.noPinjam,
+        isbn: req.body.isbn
     };
 
-    connection.query('INSERT INTO rentBuku SET ?', formData, (err, rows) => {
+    connection.query('INSERT INTO pinjam SET ?', formData, (err, rows) => {
         if (err) {
             return res.status(500).json({
                 status: false,
@@ -66,10 +69,10 @@ router.post('/create', [
 /**
  * SHOW POST
  */
-router.get('/:id', (req, res) => {
+router.get('/detail/:id', (req, res) => {
     const id = req.params.id;
 
-    connection.query(`SELECT * FROM rentBuku WHERE id = ${id}`, (err, rows) => {
+    connection.query(`SELECT * FROM pinjam WHERE id = ${id}`, (err, rows) => {
         if (err) {
             return res.status(500).json({
                 status: false,
@@ -96,9 +99,11 @@ router.get('/:id', (req, res) => {
  * UPDATE POST
  */
 router.patch('/update/:id', [
-    body('idBuku').notEmpty(),
-    body('namaBuku').notEmpty(),
-    body('password').notEmpty()
+    body('namaPeminjam').notEmpty(),
+    body('startDate').notEmpty(),
+    body('endDate').notEmpty(),
+    body('noPinjam').notEmpty(),
+    body('isbn').notEmpty()
 ], (req, res) => {
     const errors = validationResult(req);
 
@@ -110,12 +115,14 @@ router.patch('/update/:id', [
 
     const id = req.params.id;
     const formData = {
-        idBuku: req.body.idBuku,
-        namaBuku: req.body.namaBuku,
-        password: req.body.password
+        namaPeminjam: req.body.namaPeminjam,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
+        noPinjam: req.body.noPinjam,
+        isbn: req.body.isbn
     };
 
-    connection.query(`UPDATE rentBuku SET ? WHERE id = ${id}`, formData, (err, rows) => {
+    connection.query(`UPDATE pinjam SET ? WHERE id = ${id}`, formData, (err, rows) => {
         if (err) {
             return res.status(500).json({
                 status: false,
@@ -136,7 +143,7 @@ router.patch('/update/:id', [
 router.delete('/delete/:id', (req, res) => {
     const id = req.params.id;
      
-    connection.query(`DELETE FROM rentBuku WHERE id = ${id}`, (err, rows) => {
+    connection.query(`DELETE FROM pinjam WHERE id = ${id}`, (err, rows) => {
         if (err) {
             return res.status(500).json({
                 status: false,
