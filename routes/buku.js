@@ -114,7 +114,7 @@ router.get('/detailbyisbn/:id', (req, res) => {
         } else {
             return res.status(200).json({
                 status: true,
-                message: 'Detail Data Post',
+                message: 'Detail Data by isbn',
                 data: rows[0]
             });
         }
