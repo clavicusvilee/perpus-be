@@ -25,7 +25,7 @@ router.get('/list', (req, res) => {
 });
 
 /**
- * STORE POST
+ * STORE User
  */
 router.post('/create', [
     body('username').notEmpty(),
@@ -63,7 +63,7 @@ router.post('/create', [
 });
 
 /**
- * SHOW POST
+ * SHOW User
  */
 router.get('/detail/:id', (req, res) => {
     const id = req.params.id;
@@ -79,12 +79,12 @@ router.get('/detail/:id', (req, res) => {
         if (rows.length <= 0) {
             return res.status(404).json({
                 status: false,
-                message: 'Data Post Not Found!',
+                message: 'Data User Not Found!',
             });
         } else {
             return res.status(200).json({
                 status: true,
-                message: 'Detail Data Post',
+                message: 'Detail Data User',
                 data: rows[0]
             });
         }
@@ -92,7 +92,7 @@ router.get('/detail/:id', (req, res) => {
 });
 
 /**
- * UPDATE POST
+ * UPDATE User
  */
 router.patch('/update/:id', [
     body('username').notEmpty(),
@@ -130,7 +130,7 @@ router.patch('/update/:id', [
 });
 
 /**
- * DELETE POST
+ * DELETE User
  */
 router.delete('/delete/:id', (req, res) => {
     const id = req.params.id;

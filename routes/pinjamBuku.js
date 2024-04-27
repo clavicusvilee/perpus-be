@@ -25,7 +25,7 @@ router.get('/list', (req, res) => {
 });
 
 /**
- * STORE POST
+ * STORE PinjamBuku
  */
 router.post('/create', [
     body('namaPeminjam').notEmpty(),
@@ -67,7 +67,7 @@ router.post('/create', [
 });
 
 /**
- * SHOW POST
+ * SHOW pinjamBuku
  */
 router.get('/detail/:id', (req, res) => {
     const id = req.params.id;
@@ -83,12 +83,12 @@ router.get('/detail/:id', (req, res) => {
         if (rows.length <= 0) {
             return res.status(404).json({
                 status: false,
-                message: 'Data Post Not Found!',
+                message: 'Data pinjam Not Found!',
             });
         } else {
             return res.status(200).json({
                 status: true,
-                message: 'Detail Data Post',
+                message: 'Detail pinjam Post',
                 data: rows[0]
             });
         }
@@ -96,7 +96,7 @@ router.get('/detail/:id', (req, res) => {
 });
 
 /**
- * UPDATE POST
+ * UPDATE PinjamBuku
  */
 router.patch('/update/:id', [
     body('namaPeminjam').notEmpty(),
@@ -138,7 +138,7 @@ router.patch('/update/:id', [
 });
 
 /**
- * DELETE POST
+ * DELETE PinjamBuku
  */
 router.delete('/delete/:id', (req, res) => {
     const id = req.params.id;
@@ -157,5 +157,6 @@ router.delete('/delete/:id', (req, res) => {
         }
     });
 });
+
 
 export default router;

@@ -25,7 +25,7 @@ router.get('/list', (req, res) => {
 });
 
 /**
- * STORE POST
+ * STORE buku
  */
 router.post('/create', [
     body('namaBuku').notEmpty(),
@@ -67,7 +67,7 @@ router.post('/create', [
 });
 
 /**
- * SHOW POST
+ * SHOW buku
  */
 router.get('/detail/:id', (req, res) => {
     const id = req.params.id;
@@ -95,8 +95,35 @@ router.get('/detail/:id', (req, res) => {
     });
 });
 
+router.get('/detailbyisbn/:id', (req, res) => {
+    const id = req.params.id;
+
+    connection.query(`SELECT * FROM buku WHERE isbn = ${id}`, (err, rows) => {
+        if (err) {
+            return res.status(500).json({
+                status: false,
+                message: 'Internal Server Error',
+            });
+        }
+
+        if (rows.length <= 0) {
+            return res.status(404).json({
+                status: false,
+                message: 'Data Post Not Found!',
+            });
+        } else {
+            return res.status(200).json({
+                status: true,
+                message: 'Detail Data Post',
+                data: rows[0]
+            });
+        }
+    });
+});
+
+
 /**
- * UPDATE POST
+ * UPDATE buku
  */
 router.patch('/update/:id', [
     body('namaBuku').notEmpty(),
@@ -138,7 +165,7 @@ router.patch('/update/:id', [
 });
 
 /**
- * DELETE POST
+ * DELETE buku
  */
 router.delete('/delete/:id', (req, res) => {
     const id = req.params.id;
