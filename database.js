@@ -1,10 +1,10 @@
 import mysql from 'mysql'
  
 let connection = mysql.createConnection({
-   host:        'localhost',
-   user:        'root',
-   password:    '',
-   database:    'perpustakaan'
+   host:        'magna.jagoanhosting.com',
+   user:        'nanditox_programer',
+   password:    'pL;,Er{s01@8',
+   database:    'nanditox_perpustakaan'
  });
 
 connection.connect(function(error){
